@@ -1,16 +1,25 @@
 const express = require('express');
-const db = require('./config/connection ');
+const path = require('path');
 
+const db = require('./config/connection ');
 const api_routes = require('./routes/api_routes');
 
 
 const app = express();
 const PORT = 3001;
 
+// create a get route for every file inside of client
+app.use(express.static('../client'));
 
 app.use(express.json());
 
 app.use('/api', api_routes);
+
+
+// Send back the index.html file for all other requests/routes
+app.get('*', (req, res) => {
+	res.sendFile(path.join(__dirname, '../client/index.html'));
+});
 
 db.once('open', () => {
 	console.log('DB connection established');
