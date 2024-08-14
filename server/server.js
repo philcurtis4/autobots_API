@@ -9,7 +9,7 @@ const auth_routes = require('./routes/auth_routes');
 
 
 const app = express();
-const PORT = 3001 || process.env.PORT;
+const PORT = process.env.PORT || 3001;
 
 // create a get route for every file inside of client
 app.use(express.static('../client'));
